@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Modifier un mot{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h4>Modifier le mot au dictionnaire</h4>
+            <hr>
+        </div>
+        <div class="row mt-5">
+            <form method="POST" class="form-group">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-4">
+                        {% bootstrap_field form.orthographe %}
+                    </div>
+                    <div class="col-sm-4">
+                        {% bootstrap_field form.traduction_ang %}
+                    </div>
+                    <div class="col-sm-4">
+                        {% bootstrap_field form.traduction_mat %}
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.signification %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% bootstrap_field form.exemple %}
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12">
+                        {% bootstrap_field form.context %}
+                    </div>
+                </div>
+                <hr>
+                <input type="submit" class="btn btn-sm btn-primary" value="{{ submit_text }}">
+                <input type="reset" class="btn btn-sm btn-danger" value="Annuler">
+            </form>
+        </div>
+    </div>
+{% endblock %}

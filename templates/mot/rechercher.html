@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Ajouter un mot{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h4>Chercher un mot dans le dictionnaire</h4>
+            <hr>
+        </div>
+        <div class="row mb-5">
+            <form action="" class="form-group">
+                <div class="input-group mb-3">
+                  <input type="search" class="form-control" placeholder="Rechercher un mot dans le dictionnaire" name="mot_cherche" value="{{ request.GET.mot_cherche }}"
+                         aria-label="Rechercher un mot dans le dictionnaire" aria-describedby="button-addon2">
+                  <button class="btn btn-primary" type="submit" id="button-addon2">Rechercher</button>
+                </div>
+            </form>
+        </div>
+        {% if message != "" %}
+            <div class="jumbotron border-1">
+                <h3 class="display-6">Résultat</h3>
+                <p class="lead">{{ message }}</p>
+                <hr class="mb-4">
+                <table class="table table-hover">
+                    {% for mot in resultat %}
+                        <div class="row">
+                            <tr>
+                                <th>Ortographe: </th>
+                                <td>{{ mot.orthographe }}</td>
+                            </tr>
+                            <tr>
+                                <th>Traduction en anglais: </th>
+                                <td>{{ mot.traduction_ang }}</td>
+                            </tr>
+                            <tr>
+                                <th>Traduction en langue maternelle: </th>
+                                <td>{{ mot.traduction_mat }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description: </th>
+                                <td>{{ mot.signification }}</td>
+                            </tr>
+                            <tr>
+                                <th>Exemple d'utilisation: </th>
+                                <td>{{ mot.exemple }}</td>
+                            </tr>
+                            <tr>
+                                <th>Contexte d'utilisation: </th>
+                                <td>{{ mot.context }}</td>
+                            </tr>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <a href="{% url 'mot:edit' mot.pk %}" class="btn btn-sm btn-primary">Modifier la description du mot</a>
+                            </div>
+                            <div class="col-3 ms-auto">
+                                <a href="" class="btn btn-sm btn-danger">Effacer ce mot du dictionnaire</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
